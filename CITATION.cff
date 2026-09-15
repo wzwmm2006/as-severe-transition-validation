@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite the repository and the associated manuscript."
 title: "AS severe-transition validation reproducibility code"
 type: software
-version: 0.1.0
+version: 1.0.0
 date-released: 2026-09-15
 repository-code: "https://github.com/wzwmm2006/as-severe-transition-validation"
 license: MIT

@@ -34,6 +34,6 @@ The configured output directory must be outside the repository. Only aggregate J
 
 The repository contains code, documentation, synthetic tests, and manually reviewed aggregate values only. See `DATA_POLICY.md`. The MIT licence covers repository code; it does not cover MIMIC-IV or MIMIC-IV-Echo data.
 
-Development version: **0.1.0**. A `v1.0.0` release is intentionally deferred until the submission freeze and archival checks are complete.
+Release version: **1.0.0**. This is the manuscript submission release prepared for archival.
 
 Authors: Mingming Zheng and Liang Liu. Corresponding author: Mingming Zheng.
