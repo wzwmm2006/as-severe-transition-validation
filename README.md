@@ -37,3 +37,11 @@ The repository contains code, documentation, synthetic tests, and manually revie
 Release version: **1.0.0**. This is the manuscript submission release prepared for archival.
 
 Authors: Mingming Zheng and Liang Liu. Corresponding author: Mingming Zheng.
+
+## Citation and archive
+
+- GitHub repository: https://github.com/wzwmm2006/as-severe-transition-validation
+- Release: **v1.0.0**
+- Zenodo DOI: [10.5281/zenodo.22762152](https://doi.org/10.5281/zenodo.22762152)
+
+The Zenodo DOI identifies the archived software release. No journal article DOI has been assigned.
