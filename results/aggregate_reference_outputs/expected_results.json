@@ -1,0 +1,26 @@
+{
+  "native_qualifying_n": 671,
+  "first_severe_transition_n": 150,
+  "same_study_concordant_n": 22,
+  "confirmation_evaluable_n": 62,
+  "confirmation_confirmed_n": 26,
+  "confirmation_rate": 0.419355,
+  "confirmation_ci95": [0.304774, 0.543346],
+  "parameter_persistence": {
+    "ava": [23, 46],
+    "vmax": [2, 11],
+    "mean_gradient": [1, 9]
+  },
+  "reporting_schema": {
+    "A": [13, 35],
+    "B": [13, 27]
+  },
+  "supportive_outcomes_12_month": {
+    "mortality_confirmed": 0.434615,
+    "mortality_non_confirmed": 0.369408,
+    "mortality_unadjusted_hr": 1.430064,
+    "mortality_adjusted_hr": 1.096312,
+    "avr_tavr_cif_confirmed": 0.278846,
+    "avr_tavr_cif_non_confirmed": 0.060606
+  }
+}
