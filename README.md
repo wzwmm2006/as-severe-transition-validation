@@ -36,3 +36,4 @@ The repository contains code, documentation, synthetic tests, and manually revie
 
 Development version: **0.1.0**. A `v1.0.0` release is intentionally deferred until the submission freeze and archival checks are complete.
 
+Authors: Mingming Zheng and Liang Liu. Corresponding author: Mingming Zheng.
