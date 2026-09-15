@@ -1,0 +1,4 @@
+mimic_iv_path: "/path/to/mimiciv"
+mimic_iv_echo_path: "/path/to/mimic-iv-echo"
+output_path: "/path/to/local/output-outside-this-repository"
+
