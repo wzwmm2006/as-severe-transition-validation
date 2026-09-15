@@ -6,9 +6,13 @@ version: 0.1.0
 date-released: 2026-09-15
 repository-code: "https://github.com/wzwmm2006/as-severe-transition-validation"
 license: MIT
+authors:
+  - name: "Paper C authors"
 preferred-citation:
   type: article
   title: "Durability of the First Severe-Range Echocardiographic Transition in Moderate Aortic Stenosis With Left Ventricular Dysfunction"
+  authors:
+    - name: "Paper C authors"
   journal: "European Heart Journal - Cardiovascular Imaging"
-  notes: "Manuscript under preparation; DOI not yet assigned."
-
+  year: 2026
+  notes: "Manuscript under preparation; DOI not yet assigned. Replace the group author with the final author list at submission freeze."

@@ -1,4 +1,9 @@
 {
+  "original_qualifying_n": 813,
+  "original_first_severe_transition_n": 175,
+  "original_confirmation_evaluable_n": 77,
+  "original_confirmation_confirmed_n": 29,
+  "prior_valve_excluded_n": 142,
   "native_qualifying_n": 671,
   "first_severe_transition_n": 150,
   "same_study_concordant_n": 22,
@@ -21,6 +26,8 @@
     "mortality_unadjusted_hr": 1.430064,
     "mortality_adjusted_hr": 1.096312,
     "avr_tavr_cif_confirmed": 0.278846,
-    "avr_tavr_cif_non_confirmed": 0.060606
+    "avr_tavr_cif_non_confirmed": 0.060606,
+    "hf_principal_confirmed": 2,
+    "hf_principal_non_confirmed": 5
   }
 }

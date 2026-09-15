@@ -10,6 +10,9 @@ def write_aggregate_json(path: Path, result: dict) -> None:
 
 def assert_checkpoints(result: dict, expected: dict) -> None:
     keys = (
+        "original_qualifying_n", "original_first_severe_transition_n",
+        "original_confirmation_evaluable_n", "original_confirmation_confirmed_n",
+        "prior_valve_excluded_n",
         "native_qualifying_n", "first_severe_transition_n",
         "same_study_concordant_n", "confirmation_evaluable_n",
         "confirmation_confirmed_n",

@@ -10,6 +10,7 @@ import yaml
 
 from cohort.logic import (avr_class, concordant, exclude_prior_valve, first_baselines,
                           first_confirmations, first_transitions, severe_flags, sort_exams)
+from outcomes.definitions import competing_event, is_principal_hf
 from reporting.aggregate import assert_checkpoints, write_aggregate_json
 from statistics.estimators import aalen_johansen, cox_efron, km_survival, wilson
 
@@ -60,6 +61,7 @@ def cohort(config_path):
     config, hospital, patients, exams, by_patient = load(config_path)
     baseline_all = first_baselines(by_patient)
     transition_all = first_transitions(baseline_all, by_patient)
+    confirmation_all = first_confirmations(transition_all, by_patient)
     procedures = defaultdict(list)
     for r in rows(hospital / "procedures_icd.csv.gz"):
         if r["subject_id"] not in baseline_all:
@@ -76,6 +78,11 @@ def cohort(config_path):
     confirmed = {key for key, value in confirmations.items() if any(severe_flags(value[1]).values())}
     result = {
         "adult_eligible_tte_n": sum(e["age"] is not None and e["age"] >= 18 for e in exams.values()),
+        "original_qualifying_n": len(baseline_all),
+        "original_first_severe_transition_n": len(transition_all),
+        "original_confirmation_evaluable_n": len(confirmation_all),
+        "original_confirmation_confirmed_n": sum(any(severe_flags(value[1]).values()) for value in confirmation_all.values()),
+        "prior_valve_excluded_n": len(excluded),
         "native_qualifying_n": len(baseline),
         "native_with_subsequent_tte_n": sum(any(e["dt"] > b["dt"] for e in native_exams[key]) for key, b in baseline.items()),
         "first_severe_transition_n": len(transitions),
@@ -108,7 +115,9 @@ def supportive_outcomes(state):
     for r in rows(hospital / "admissions.csv.gz"):
         key = r["subject_id"]
         if key not in state["baseline"]: continue
-        item = {"discharge": datetime.fromisoformat(r["dischtime"]) if r["dischtime"] else None,
+        item = {"admission_key": r["hadm_id"],
+                "admit": datetime.fromisoformat(r["admittime"]) if r["admittime"] else None,
+                "discharge": datetime.fromisoformat(r["dischtime"]) if r["dischtime"] else None,
                 "death": datetime.fromisoformat(r["deathtime"]) if r.get("deathtime") else None}
         admissions[key].append(item)
         if item["discharge"] and (key not in last_discharge or item["discharge"] > last_discharge[key]):
@@ -118,6 +127,11 @@ def supportive_outcomes(state):
         key = r["subject_id"]
         if key in landmark and avr_class(r["icd_code"], r["icd_version"]) and r["chartdate"]:
             procedure_dates[key].append(datetime.fromisoformat(r["chartdate"]))
+    principal_hf = defaultdict(set)
+    for r in rows(hospital / "diagnoses_icd.csv.gz"):
+        key, code, version = r["subject_id"], r["icd_code"].strip().upper(), r["icd_version"]
+        if key in landmark and is_principal_hf(code, version, r["seq_num"]):
+            principal_hf[key].add(r["hadm_id"])
 
     def death_date(key):
         registry = patients[key].get("dod", "")
@@ -138,9 +152,7 @@ def supportive_outcomes(state):
                           "male": int(patients[key]["gender"] == "M")})
         valve = min((d for d in procedure_dates.get(key, []) if d > start), default=None)
         valve_days = (valve - start).days if valve else None
-        if valve_days is not None and valve_days <= cap_days and (death_days is None or valve_days <= death_days): cause, time = 1, valve_days
-        elif death_days is not None and death_days <= cap_days: cause, time = 2, death_days
-        else: cause, time = 0, max(cap_days, 0)
+        time, cause = competing_event(valve_days, death_days, cap_days)
         competing.append({"group": int(key in confirmed), "time": time, "cause": cause})
     output = {}
     for label, code in (("confirmed", 1), ("non_confirmed", 0)):
@@ -149,6 +161,9 @@ def supportive_outcomes(state):
         output["mortality_" + label] = 1 - survival
         cr = [r for r in competing if r["group"] == code]
         output["avr_tavr_cif_" + label] = aalen_johansen([r["time"] for r in cr], [r["cause"] for r in cr])
+        members = confirmed if code == 1 else set(landmark) - confirmed
+        output["hf_principal_" + label] = sum(any(a["admission_key"] in principal_hf[key] and a["admit"] and a["admit"] > landmark[key]
+                                                       for a in admissions.get(key, [])) for key in members)
     times=[r["time"] for r in mortality]; events=[r["event"] for r in mortality]
     beta=cox_efron(times,events,[[r["group"]] for r in mortality])[0]
     adjusted=cox_efron(times,events,[[r["group"],r["age"],r["male"]] for r in mortality])[0]

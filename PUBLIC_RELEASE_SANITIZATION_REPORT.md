@@ -29,6 +29,8 @@ Identifiers in committed data: 0. The strings `subject_id`, `hadm_id`, and MIMIC
 - Removed patient-specific diagnostic output and row-level export functions from the public pipeline.
 - Used artificial records only in unit tests.
 - Kept the real-data configuration and reconciliation output outside the repository.
+- Inspected tracked paths, all reachable Git objects, and repository integrity with `git fsck`; restricted data have never entered the local Git history.
+- Validated `CITATION.cff` against CFF schema version 1.2.0.
 
 ## Final verdict
 
@@ -39,4 +41,3 @@ Identifiers in committed data: 0. The strings `subject_id`, `hadm_id`, and MIMIC
 - identifiers in committed data: 0
 - credentials: 0
 - unsafe absolute paths: 0
-

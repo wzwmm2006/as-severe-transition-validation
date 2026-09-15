@@ -6,6 +6,11 @@ The public aggregate-only pipeline was run against authorized local copies of MI
 
 | Checkpoint | Public code | Frozen reference | Status |
 |---|---:|---:|---|
+| Original qualifying cohort | 813 | 813 | Exact |
+| Original first severe-range transition | 175 | 175 | Exact |
+| Original evaluable confirmation | 77 | 77 | Exact |
+| Original confirmed | 29 | 29 | Exact |
+| Prior-valve exclusions | 142 | 142 | Exact |
 | Native qualifying cohort | 671 | 671 | Exact |
 | First severe-range transition | 150 | 150 | Exact |
 | Same-study concordant | 22 | 22 | Exact |
@@ -22,6 +27,8 @@ The public aggregate-only pipeline was run against authorized local copies of MI
 | Adjusted mortality HR | 1.096312 | 1.096312 | Within 5×10⁻⁶ |
 | AVR/TAVR CIF, confirmed | 0.278846 | 0.278846 | Within 5×10⁻⁶ |
 | AVR/TAVR CIF, non-confirmed | 0.060606 | 0.060606 | Within 5×10⁻⁶ |
+| Principal-HF hospitalization, confirmed | 2 | 2 | Exact |
+| Principal-HF hospitalization, non-confirmed | 5 | 5 | Exact |
 
 Verdict: `PUBLIC_CODE_RECONCILIATION_PASS`.
 

@@ -9,4 +9,5 @@
 | Mortality KM/Cox estimates | `src/pipeline.py`, `src/statistics/estimators.py` | `scripts/04_supportive_outcomes.py` |
 | AVR/TAVR cumulative incidence | `src/statistics/estimators.py` | `scripts/04_supportive_outcomes.py` |
 | Aggregate manuscript checkpoints | `src/reporting/aggregate.py` | `scripts/05_generate_manuscript_outputs.py` |
-
+| Original-cohort sensitivity (29/77) | `src/pipeline.py` | `scripts/05_generate_manuscript_outputs.py` |
+| Principal-HF hospitalization (2/26 and 5/36) | `src/pipeline.py`, `src/outcomes/definitions.py` | `scripts/04_supportive_outcomes.py` |

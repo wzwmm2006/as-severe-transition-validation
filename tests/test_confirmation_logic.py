@@ -4,6 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from cohort.logic import first_confirmations, severe_flags
+from outcomes.definitions import competing_event, is_principal_hf
 
 
 def exam(offset,key,**values):
@@ -37,3 +38,10 @@ def test_unevaluable_exam_is_skipped():
     t=transition(); missing=exam(40,"missing",lvef=35); evaluable=exam(60,"evaluable",vmax=4.1)
     result=first_confirmations({"synthetic":t},{"synthetic":[t[1],missing,evaluable]})
     assert result["synthetic"][1]["study_key"]=="evaluable"
+
+
+def test_supportive_outcome_definitions():
+    assert is_principal_hf("I5023", "10", "1")
+    assert not is_principal_hf("I5023", "10", "2")
+    assert competing_event(20, 20, 365) == (20, 1)
+    assert competing_event(None, 20, 365) == (20, 2)
